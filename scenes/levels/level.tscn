@@ -1,24 +1,81 @@
-[gd_scene load_steps=7 format=3 uid="uid://blimvyvmggf88"]
+[gd_scene load_steps=17 format=3 uid="uid://blimvyvmggf88"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_5ygxu"]
+[ext_resource type="Texture2D" uid="uid://budnqdgxphv3o" path="res://graphics/ground/stones.png" id="2_8adjb"]
 [ext_resource type="PackedScene" uid="uid://cm252nd45yvq3" path="res://scenes/objects/gate.tscn" id="2_kwo4u"]
+[ext_resource type="Texture2D" uid="uid://bipcv5hg0dbet" path="res://graphics/decals/dirt_patch.png" id="3_ik81i"]
+[ext_resource type="Texture2D" uid="uid://bigcia0fj20os" path="res://graphics/decals/moss/moss_1.png" id="4_2bidu"]
 [ext_resource type="PackedScene" uid="uid://bpdkrklmfacse" path="res://scenes/player/player.tscn" id="4_08xjo"]
 [ext_resource type="PackedScene" uid="uid://cwd8fpfj0j2q3" path="res://scenes/projectiles/laser.tscn" id="4_cumvn"]
+[ext_resource type="Texture2D" uid="uid://n735xn5vjcwt" path="res://graphics/decals/moss/moss_2.png" id="5_cid6f"]
 [ext_resource type="PackedScene" uid="uid://cht74kb88llia" path="res://scenes/projectiles/grenade.tscn" id="5_pai01"]
+[ext_resource type="Texture2D" uid="uid://del77wvtux7k4" path="res://graphics/decals/moss/moss_3.png" id="6_mffmo"]
+[ext_resource type="Texture2D" uid="uid://02cpkemy87g" path="res://graphics/decals/moss/moss_4.png" id="7_gsifq"]
+[ext_resource type="Texture2D" uid="uid://dgq01prgojar1" path="res://graphics/decals/moss/moss_5.png" id="8_6x5vv"]
+[ext_resource type="Texture2D" uid="uid://uw1pb5wjl0jq" path="res://graphics/tilesets/outside_walls.png" id="9_bqdbl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1xs11"]
+resource_name = "walls"
+texture = ExtResource("9_bqdbl")
+texture_region_size = Vector2i(390, 390)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_07tq5"]
+tile_size = Vector2i(390, 390)
+sources/0 = SubResource("TileSetAtlasSource_1xs11")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_my14g"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_5ygxu")
 
-[node name="Gate" parent="." instance=ExtResource("2_kwo4u")]
+[node name="Ground" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("4_08xjo")]
-position = Vector2(525, 431)
+[node name="Soil" type="Sprite2D" parent="Ground"]
+texture_repeat = 2
+position = Vector2(544, 403)
+texture = ExtResource("2_8adjb")
+region_enabled = true
+region_rect = Rect2(-2990.99, -1373.83, 6653.22, 3751.93)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.6, 0.6)
-position_smoothing_enabled = true
+[node name="Decoration" type="Sprite2D" parent="Ground"]
+modulate = Color(0.894118, 0.823529, 0.690196, 0.643137)
+position = Vector2(-67, 842)
+texture = ExtResource("3_ik81i")
+
+[node name="Moss1" type="Sprite2D" parent="Ground"]
+position = Vector2(981, 1316)
+texture = ExtResource("4_2bidu")
+
+[node name="Moss2" type="Sprite2D" parent="Ground"]
+position = Vector2(2397, 612)
+texture = ExtResource("5_cid6f")
+
+[node name="Moss3" type="Sprite2D" parent="Ground"]
+position = Vector2(1513, 1336)
+texture = ExtResource("6_mffmo")
+
+[node name="Moss4" type="Sprite2D" parent="Ground"]
+position = Vector2(1461, 852)
+texture = ExtResource("7_gsifq")
+
+[node name="Moss5" type="Sprite2D" parent="Ground"]
+position = Vector2(1881, 196)
+texture = ExtResource("8_6x5vv")
+
+[node name="TileMap" type="TileMap" parent="Ground"]
+tile_set = SubResource("TileSet_07tq5")
+format = 2
+layer_0/tile_data = PackedInt32Array(-4, 131072, 0, -5, 65536, 0, -6, 65536, 0, -7, 65536, 0, -8, 0, 0, -65530, 65536, 2, -131066, 0, 2, -196602, 0, 2, -262138, 0, 2, -65529, 65536, 0, -65528, 65536, 0, -65527, 65536, 0, -65526, 131072, 1, 10, 0, 2, 65546, 0, 2, 196618, 0, 2, 131082, 0, 2, 262154, 0, 2, 327690, 0, 3)
 
 [node name="Projectiles" type="Node2D" parent="."]
 
@@ -29,6 +86,15 @@ visible = false
 visible = false
 physics_material_override = SubResource("PhysicsMaterial_my14g")
 linear_velocity = Vector2(0, 0)
+
+[node name="Gate" parent="." instance=ExtResource("2_kwo4u")]
+
+[node name="Player" parent="." instance=ExtResource("4_08xjo")]
+position = Vector2(525, 431)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
 
 [connection signal="player_entered_gate" from="Gate" to="." method="_on_gate_player_entered_gate"]
 [connection signal="grenade" from="Player" to="." method="_on_player_grenade"]
