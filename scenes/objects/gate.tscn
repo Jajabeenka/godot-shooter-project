@@ -7,6 +7,8 @@
 size = Vector2(8.57, 1.315)
 
 [node name="Gate" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 11
 script = ExtResource("1_l6jfx")
 
 [node name="GateImage" type="Sprite2D" parent="."]
@@ -18,6 +20,7 @@ polygon = PackedVector2Array(-929, -1360, -928, -39, -921, 4, -902, 59, -856, 12
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(308, 116)
+collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(260.5, -31.75)
