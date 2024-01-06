@@ -33,15 +33,6 @@ polygon = PackedVector2Array(-23, 96, -31, 94, -36, 90, -38, 83, -43, 75, -44, 7
 collision_mask = 31
 script = ExtResource("1_pg5kl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 37)
-shape = SubResource("CircleShape2D_spoda")
-
-[node name="PlayerImage" type="Sprite2D" parent="."]
-position = Vector2(36, 38)
-rotation = 1.5708
-texture = ExtResource("1_2qepm")
-
 [node name="LaserTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
@@ -50,7 +41,11 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_spoda")
+
 [node name="LaserStartPositions" type="Node2D" parent="."]
+position = Vector2(1, -37)
 
 [node name="Marker2D" type="Marker2D" parent="LaserStartPositions"]
 position = Vector2(129, 56)
@@ -62,12 +57,13 @@ position = Vector2(127, 48)
 position = Vector2(126, 65)
 
 [node name="GrenadeStartPosition" type="Node2D" parent="."]
+position = Vector2(1, -37)
 
 [node name="GrenadeMarker" type="Marker2D" parent="GrenadeStartPosition"]
 position = Vector2(129, 56)
 
 [node name="LaserParticles" type="GPUParticles2D" parent="."]
-position = Vector2(130, 57)
+position = Vector2(131, 20)
 emitting = false
 amount = 26
 process_material = SubResource("ParticleProcessMaterial_lb12t")
@@ -76,7 +72,13 @@ lifetime = 0.15
 one_shot = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(1, -37)
 occluder = SubResource("OccluderPolygon2D_4cxwm")
+
+[node name="PlayerImage" type="Sprite2D" parent="."]
+position = Vector2(37, 1)
+rotation = 1.5708
+texture = ExtResource("1_2qepm")
 
 [connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
 [connection signal="timeout" from="GrenadeTimer" to="." method="_on_grenade_timer_timeout"]
